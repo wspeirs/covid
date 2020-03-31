@@ -1,38 +1,27 @@
 import pandas as pd
+from compute_us import compute_us
 
 #
-# Compute the morality rate of the virus by looking at other countries
+# Compute the morality rate of the virus by looking at countries confirmed cases and deaths
 #
 global_deaths_df = pd.read_csv('data/global_deaths.csv', header=0)
 global_confirmed_df = pd.read_csv('data/global_confirmed.csv', header=0)
 
-# check date ranges
-if global_deaths_df.columns[4] != global_confirmed_df.columns[4] or \
-   global_deaths_df.columns[-1] != global_confirmed_df.columns[-1]:
-    raise ValueError("Date mis-match")
+# check that the last dates match
+if global_deaths_df.columns[-1] != global_confirmed_df.columns[-1]:
+    raise ValueError("Last dates are not the same")
 
 global_data = dict()
+date = global_deaths_df.columns[-1]
 
 # compute total deaths by country
 for country, df in global_deaths_df.groupby('Country/Region'):
-    total = 0
     global_data[country] = dict()
-
-    for date in global_deaths_df.columns[4:]:
-        total += df[date].sum()  # add to our total the deaths for that date
-        # print("{} - {}: {}".format(date, country, total))
-
-    global_data[country]['deaths'] = total
+    global_data[country]['deaths'] = df[date].sum()
 
 # compute total cases by country
 for country, df in global_confirmed_df.groupby('Country/Region'):
-    total = 0
-
-    for date in global_confirmed_df.columns[4:]:
-        total += df[date].sum()  # add to our total the deaths for that date
-        # print("{} - {}: {}".format(date, country, total))
-
-    global_data[country]['cases'] = total
+    global_data[country]['cases'] = df[date].sum()
 
 # construct a new DataFrame with mortality rates
 global_data_df = pd.DataFrame(global_data)
@@ -47,3 +36,9 @@ med_mortality = mortality_rates.median()
 
 print("Average global mortality: {:.02}%".format(avg_mortality * 100.0))
 print("Median global mortality: {:.02}%".format(med_mortality * 100.0))
+
+# look at the US
+us_df = compute_us()
+
+print("US mortality: {:.02}%".format(us_df.iloc[-1]['mortality'] * 100.0))
+
