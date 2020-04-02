@@ -69,7 +69,7 @@ def fit_sin(df, country, lockdown_date):
 countries = [
     # "Belgium",
      # "Brazil",
-    "China",
+    # "China",
     # "France",
     # "Germany",
      # "Indonesia",
@@ -78,7 +78,7 @@ countries = [
     # "Korea, South",
      # "Netherlands",
      # "Portugal",
-    # "Spain",
+    "Spain",
      # "Sweden",
      # "Switzerland",
      # "Turkey",
@@ -118,8 +118,8 @@ df_diff = df_diff.fillna(value=0)
 print(df_diff)
 
 # fit the sin curve
-lockdown_date = datetime.date(year=2020, month=1, day=23)
-clear_date = fit_sin(df_diff, 'China', lockdown_date)
+lockdown_date = datetime.date(year=2020, month=3, day=15)
+clear_date = fit_sin(df_diff, countries[0], lockdown_date)
 
 print("Clear by: {} with {} deaths".format(clear_date, df_diff['computed'].sum()))
 
@@ -134,6 +134,6 @@ plt.ylabel('Deaths by Day')
 plt.grid(which='both', axis='x')
 
 # plt.show()
-plt.savefig('site/img/china.png')
+plt.savefig('site/img/spain.png')
 
 print()

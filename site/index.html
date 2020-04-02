@@ -22,6 +22,14 @@
     <span class="font-semibold">Disclaimer:</span>  Everything on this page is a prediction. I make no claims to the accuracy
     of the information.
 </p>
+<br>
+<span class="font-semibold text-xl">Predictions Over Time</span>
+<table class="table-auto">
+    <tr><th class="text-center px-3 py-1">Prediction Date</th><th class="text-center px-3 py-1">Italy</th><th class="text-center px-3 py-1">Spain</th><th class="text-center px-3 py-1">US</th></tr>
+    <tr><td class="text-center px-3 py-1">March 31</td><td class=" px-3 py-1">4/23 - 22,485</td><td class=" px-3 py-1">5/1 - 28,330</td><td class=" px-3 py-1">5/14 - 32,601</td></tr>
+</table>
+<br/>
+<span class="font-semibold text-xl">Introduction</span>
 <p class="mt-4">
     This is an attempt to predict the rise and fall of deaths from the covid-19 virus. I focus on deaths because
     it is the most accurate indicator/data we have on this virus. In an attempt to predict the rise and fall of deaths,
@@ -29,10 +37,9 @@
     rise and fall in deaths. There have been accusations of inaccurate data from China, but in my opinion, it is the best
     data we have at the moment. All code used to create these predications can be found on
     <a class="text-blue-700 hover:text-blue-800 underline" href="https://github.com/wspeirs/covid">GitHub</a>.
-    I used the following assumptions in my predictions:
 </p>
 <br>
-<span class="font-semibold">Assumptions:</span>
+<span class="font-semibold text-xl">Assumptions</span>
 <ul class="list-disc">
     <li>
         Reported deaths are not prefect; therefore, I use a 3-day moving average to smooth out these numbers a bit. Why
@@ -83,6 +90,14 @@
     their country on March 8th. Using this date and the deaths reported, my model predicts Italy will be "out-of-the-woods"
     on April 23rd with 22,485 deaths. As of March 31st they have reported 12,428 deaths. The curve for Italy is shown below:
     <img class="mx-auto" src="img/italy.png" alt="Italy prediction"/>
+</p>
+<br/>
+<span class="font-semibold text-xl">Spain</span>
+<p>
+    The deaths in Spain have been rising rapidly as well, but the Spanish were slower to issue their lockdown. The Prime Minister
+    issued his country's lockdown on March 15th. My model predicts Spain will be "out-of-the-woods" on May 1st with 28,330 deaths.
+    As of March 31st they have reported 8,464 deaths. The curve for Spain is shown below:
+    <img class="mx-auto" src="img/spain.png" alt="Spain prediction"/>
 </p>
 <br/>
 <span class="font-semibold text-xl">United States</span>
