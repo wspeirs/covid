@@ -69,7 +69,7 @@ def fit_sin(df, country, lockdown_date):
 countries = [
     # "Belgium",
      # "Brazil",
-    # "China",
+    "China",
     # "France",
     # "Germany",
      # "Indonesia",
@@ -87,7 +87,7 @@ countries = [
 
 global_deaths_df = pd.read_csv('data/global_deaths.csv', header=0)
 
-us_df = compute_us()
+# us_df = compute_us()
 
 data = defaultdict(lambda: dict())
 
@@ -100,7 +100,8 @@ for date in global_deaths_df.columns[4:]:
 
         data[country][date_dt] = df[date].sum()
 
-    data['US'][date_dt] = us_df.loc[date_dt]['deaths'] if date_dt in us_df.index else np.nan
+    # if date_dt in us_df.index:
+    #     data['US'][date_dt] = us_df.loc[date_dt]['deaths']
 
 df = pd.DataFrame(data)
 df = df.sort_index()
@@ -110,27 +111,29 @@ print(df)
 df_diff = df.copy()
 
 # convert from raw counts to percent change with a 3-day moving average
-for country in list(countries) + ['US']:
+for country in list(countries): # + ['US']:
     df_diff[country] = df[country].diff().rolling(window=3).mean()
 
 df_diff = df_diff.fillna(value=0)
 print(df_diff)
 
 # fit the sin curve
-lockdown_date = datetime.date(year=2020, month=3, day=24)
-clear_date = fit_sin(df_diff, 'US', lockdown_date)
+lockdown_date = datetime.date(year=2020, month=1, day=23)
+clear_date = fit_sin(df_diff, 'China', lockdown_date)
 
 print("Clear by: {} with {} deaths".format(clear_date, df_diff['computed'].sum()))
 
 # plot the results
-ax = df_diff.plot(figsize=(10,5), title='Deaths by Day')
+# ax = df_diff.plot(figsize=(10,5), title='Deaths by Day')
+ax = df_diff.plot(figsize=(10,5))
 (start, end) = ax.get_xlim()
 ax.xaxis.set_ticks(np.arange(start, end, 6))
 ax.xaxis.set_major_formatter(mdates.DateFormatter('%-m/%-d'))
+plt.ylabel('Deaths by Day')
 # plt.ylim(-1, 6)
 plt.grid(which='both', axis='x')
 
 # plt.show()
-plt.savefig('site/img/us.png')
+plt.savefig('site/img/china.png')
 
 print()
