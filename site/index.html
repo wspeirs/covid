@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <title>Covid-19 Predictions by William R. Speirs</title>
+</head>
+<body>
+<div class="container mx-auto lg px-4 text-gray-800">
+<h1 class="text-center text-3xl text-gray-900">Covid-19 Predictions</h1>
+<h2 class="text-center text-2xl">by <a class="text-blue-700 hover:text-blue-800 underline" href="https://www.linkedin.com/in/williamspeirs/">William R. Speirs</a></h2>
+<h3 class="text-center text-xl">Written: March 31st</h3>
+<p class="mt-6">
+    <span class="font-semibold">Disclaimer:</span>  Everything on this page is a prediction. I make no claims to the accuracy
+    of the information.
+</p>
+<p class="mt-4">
+    This is an attempt to predict the rise and fall of deaths from the covid-19 virus. I focus on deaths because
+    it is the most accurate indicator/data we have on this virus. In an attempt to predict the rise and fall of deaths,
+    I first looked at China as it is the only country (South Korea has seen multiple rises and falls) that has seen a
+    rise and fall in deaths. All code used to create these predications can be found on
+    <a class="text-blue-700 hover:text-blue-800 underline" href="https://github.com/wspeirs/covid">GitHub</a>.
+    I used the following assumptions in my predictions:
+</p>
+<br>
+<span class="font-semibold">Assumptions:</span>
+<ul class="list-disc">
+    <li>
+        Reported deaths are not prefect; therefore, I use a 3-day moving average to smooth out these numbers a bit. Why
+        3 days instead of some other number? I played around with the data and model and it seemed to produce the most accurate results.
+    </li>
+    <li>
+        The <a class="text-blue-700 hover:text-blue-800 underline" href="https://www.who.int/docs/default-source/coronaviruse/who-china-joint-mission-on-covid-19-final-report.pdf">WHO</a>
+        reports it takes 2 to 8 weeks to die from covid-19. The <a class="text-blue-700 hover:text-blue-800 underline" href="https://www.thelancet.com/journals/laninf/article/PIIS1473-3099(20)30257-7/fulltext">Lancet report</a>
+        states that the mean duration from symptom onset to death is 17.8 days (16.9 to 19.2 95% credible interval).
+        The <a class="text-blue-700 hover:text-blue-800 underline" href="https://www.insidermonkey.com/blog/hell-is-coming-here-is-the-mathematical-proof-822824/">"Hell is Coming"</a>
+        report used 23 - 24 days, and had a fairly accurate prediction of 800 deaths in the US on March 26th (it was actually 1,275).
+        For my predictions I've used 24 days between a country issues a lock-down to the peak of deaths in that country.
+    </li>
+    <li>
+        It has been reported in numerous places that the morality rates of the virus vary greatly by age and preexisting
+        conditions. I'm treating everyone in a country the same.
+    </li>
+    <li>
+        "Lock-down" dates are not perfect. Lots of people do not follow the orders, and the <a class="text-blue-700 hover:text-blue-800 underline" href="https://www.nytimes.com/interactive/2020/us/coronavirus-stay-at-home-order.html">
+        order that is issued makes a large difference</a> as well. Instead of trying to be too precise, I simply pick a
+        single date and assume the peak will come 24 days later.
+    </li>
+</ul>
+<br>
+<p>
+    I attempted to find a model that predicts when a country is "out-of-the-woods" by trying to fit a sine wave to the number
+    of deaths by day. Why a sine wave and not another function? I tried a few, and the sine wave fit pretty nicely to the
+    number of deaths by day in China as shown below:
+    <img class="mx-auto" src="img/china.png" alt="China prediction"/>
+    My model predicts that China "will" be out-of-the-woods on March 6th with a total of 3,180 deaths. As of March 6th China
+    had reported 3,044 deaths, a difference of 136. While only a single country, this <i>seems</i> to validate using a sine wave
+    to predict the rise and fall of deaths for the virus.
+</p>
+<p>
+    Italy has received a lot of attention because of the rapid increase in deaths in the country. Italy issued a lock-down of
+    their country on March 8th. Using this date and the deaths reported, my model predicts Italy will be "out-of-the-woods"
+    on April 23rd with 22,485 deaths. As of March 31st they have reported 12,428 deaths. The curve for Italy is shown below:
+    <img class="mx-auto" src="img/italy.png" alt="Italy prediction"/>
+</p>
+<p>
+    The last country I modeled is my own, the United States. The US issued lock-down orders at
+    <a class="text-blue-700 hover:text-blue-800 underline" href="https://www.nytimes.com/interactive/2020/us/coronavirus-stay-at-home-order.html">various times</a>
+    on a state-by-state basis. I picked March 24th as it <i>seemed</i> to be around when most of the country issued the order.
+    My model predicts the US will be "out-of-the-woods" on May 14th with a total of 32,601 deaths. As of March 31st the US
+    has reported 3,073 deaths. The curve for the US is shown below:
+    <img class="mx-auto" src="img/us.png" alt="US prediction"/>
+</p>
+</div>
+</body>
+</html>

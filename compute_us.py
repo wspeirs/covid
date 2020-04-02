@@ -13,14 +13,19 @@ def compute_us():
 
     data = dict()
 
-    for date in deaths_df.columns[11:]:
-        data[date] = dict()
+    # find the first date
+    start_index = next(i for i, x in enumerate(deaths_df.columns) if str(x).startswith('1'))
 
-        data[date]['jh_deaths'] = deaths_df[date].sum()
-        data[date]['jh_cases'] = cases_df[date].sum()
+    for date in deaths_df.columns[start_index:]:
+        date_dt = parse(date).date()
 
-        data[date]['nyt_deaths'] = combined_df[combined_df['date'] == parse(date)]['deaths'].sum()
-        data[date]['nyt_cases'] = combined_df[combined_df['date'] == parse(date)]['cases'].sum()
+        data[date_dt] = dict()
+
+        data[date_dt]['jh_deaths'] = deaths_df[date].sum()
+        data[date_dt]['jh_cases'] = cases_df[date].sum()
+
+        data[date_dt]['nyt_deaths'] = combined_df[combined_df['date'] == parse(date)]['deaths'].sum()
+        data[date_dt]['nyt_cases'] = combined_df[combined_df['date'] == parse(date)]['cases'].sum()
 
     data_df = pd.DataFrame(data)
     data_df = data_df.T
@@ -33,4 +38,4 @@ def compute_us():
 
 
 if __name__ == '__main__':
-    print(compute_us().head())
+    print(compute_us())
