@@ -26,6 +26,7 @@
 <span class="font-semibold text-xl">Predictions Over Time</span>
 <table class="table-auto">
     <tr><th class="text-center px-3 py-1">Prediction Date</th><th class="text-center px-3 py-1">Italy</th><th class="text-center px-3 py-1">Spain</th><th class="text-center px-3 py-1">US</th></tr>
+    <tr><td class="text-center px-3 py-1">April  2</td><td class=" px-3 py-1">4/24 - 23,164</td><td class=" px-3 py-1">5/1 - 27,982</td><td class=" px-3 py-1">5/10 - 53,560</td></tr>
     <tr><td class="text-center px-3 py-1">March 31</td><td class=" px-3 py-1">4/23 - 22,485</td><td class=" px-3 py-1">5/1 - 28,330</td><td class=" px-3 py-1">5/14 - 32,601</td></tr>
 </table>
 <br/>
@@ -84,29 +85,15 @@
 
 </p>
 <br/>
-<span class="font-semibold text-xl">Italy</span>
+<span class="font-semibold text-xl">Italy, Spain, and the United States</span>
 <p>
-    Italy has received a lot of attention because of the rapid increase in deaths in the country. Italy issued a lock-down of
-    their country on March 8th. Using this date and the deaths reported, my model predicts Italy will be "out-of-the-woods"
-    on April 23rd with 22,485 deaths. As of March 31st they have reported 12,428 deaths. The curve for Italy is shown below:
+    I picked 3 countries -- Italy, Spain, and the United States -- to try and predict when they will be out-of-the-woods, and with how many deaths.
+    I picked these 3 countries because they all had different lock-down dates: March 8th, March 15th, and March 24th respectively.
+    Picking a lock-down date is difficult because they can very from area-to-area in a country. The United States for example
+    is probably the <a class="text-blue-700 hover:text-blue-800 underline" href="https://www.nytimes.com/interactive/2020/us/coronavirus-stay-at-home-order.html">least consistent in issuing lock-downs.</a>
+    Smaller countries actually make it easier. The latest predictions for each country can be found in the table above, and the fitted curves in the graphs below.
     <img class="mx-auto" src="img/italy.png" alt="Italy prediction"/>
-</p>
-<br/>
-<span class="font-semibold text-xl">Spain</span>
-<p>
-    The deaths in Spain have been rising rapidly as well, but the Spanish were slower to issue their lockdown. The Prime Minister
-    issued his country's lockdown on March 15th. My model predicts Spain will be "out-of-the-woods" on May 1st with 28,330 deaths.
-    As of March 31st they have reported 8,464 deaths. The curve for Spain is shown below:
     <img class="mx-auto" src="img/spain.png" alt="Spain prediction"/>
-</p>
-<br/>
-<span class="font-semibold text-xl">United States</span>
-<p>
-    The last country I modeled is my own, the United States. The US issued lock-down orders at
-    <a class="text-blue-700 hover:text-blue-800 underline" href="https://www.nytimes.com/interactive/2020/us/coronavirus-stay-at-home-order.html">various times</a>
-    on a state-by-state basis. I picked March 24th as it <i>seemed</i> to be around when most of the country issued the order.
-    My model predicts the US will be "out-of-the-woods" on May 14th with a total of 32,601 deaths. As of March 31st the US
-    has reported 3,073 deaths. The curve for the US is shown below:
     <img class="mx-auto" src="img/us.png" alt="US prediction"/>
 </p>
 </div>
