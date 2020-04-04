@@ -1,41 +1,36 @@
 import pandas as pd
+
 from dateutil.parser import parse
+from collections import defaultdict
+
 
 #
-# Compute the cases and deaths from 2 sources of US data, using the max
+# Compute deaths from 2 sources of US data, using the max
 #
 def compute_us():
-    deaths_df = pd.read_csv('data/us_deaths_jh.csv', header=0)
-    cases_df = pd.read_csv('data/us_confirmed_jh.csv', header=0)
+    jh_df = pd.read_csv('data/us_deaths_jh.csv', header=0)
+    nyt_df = pd.read_csv('data/us_data_nyt.csv', header=0)
+    nyt_df['date'] = pd.to_datetime(nyt_df['date'])
 
-    combined_df = pd.read_csv('data/us_data_nyt.csv', header=0)
-    combined_df['date'] = pd.to_datetime(combined_df['date'])
+    data = defaultdict(lambda: dict())
 
-    data = dict()
+    # go through the NYTs data converting to a DataFrame we can use
+    for state, df in nyt_df.groupby('state'):
+        for date, df in df.groupby('date'):
+            date_str = date.strftime('%-m/%-d/20')
+            nyt_deaths = df['deaths'].sum()
 
-    # find the first date
-    start_index = next(i for i, x in enumerate(deaths_df.columns) if str(x).startswith('1'))
+            if date_str in jh_df.columns:
+                jh_deaths = jh_df[jh_df['Province_State'] == state][date_str].sum()
+                data[date.date()][state] = max(nyt_deaths, jh_deaths)
+            else:
+                data[date.date()][state] = nyt_deaths
 
-    for date in deaths_df.columns[start_index:]:
-        date_dt = parse(date).date()
+    df = pd.DataFrame(data).T
+    df = df.sort_index()
+    df = df.fillna(value=0)
 
-        data[date_dt] = dict()
-
-        data[date_dt]['jh_deaths'] = deaths_df[date].sum()
-        data[date_dt]['jh_cases'] = cases_df[date].sum()
-
-        data[date_dt]['nyt_deaths'] = combined_df[combined_df['date'] == parse(date)]['deaths'].sum()
-        data[date_dt]['nyt_cases'] = combined_df[combined_df['date'] == parse(date)]['cases'].sum()
-
-    data_df = pd.DataFrame(data)
-    data_df = data_df.T
-
-    data_df['deaths'] = data_df[['jh_deaths', 'nyt_deaths']].max(axis=1)
-    data_df['cases'] = data_df[['jh_cases', 'nyt_cases']].max(axis=1)
-    data_df['mortality'] = data_df['deaths'] / data_df['cases']
-
-    return data_df[['cases', 'deaths', 'mortality']]
-
+    return df
 
 if __name__ == '__main__':
     print(compute_us())

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162567513-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-162567513-1');
+    </script>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    <title>Covid-19 Predictions by William R. Speirs</title>
+</head>
+<body>
+<div class="container mx-auto lg px-4 text-gray-800">
+<h1 class="text-center text-3xl text-gray-900">Covid-19 Predictions</h1>
+<h2 class="text-center text-2xl">by <a class="text-blue-700 hover:text-blue-800 underline" href="https://www.linkedin.com/in/williamspeirs/">William R. Speirs</a></h2>
+<h3 class="text-center text-xl"><a class="text-blue-700 hover:text-blue-800 underline" href="/">Global Predictions</a></h3>
+<p class="mt-6">
+    <span class="font-semibold">Disclaimer:</span>  Everything on this page is a prediction. I make no claims to the accuracy
+    of the information.
+</p>
+<br>
+<span class="font-semibold text-xl">Introduction</span>
+<p class="mt-4">
+    This is an attempt to predict the rise and fall of deaths from the covid-19 virus for each sate in the United States.
+    The methodology used can be found on the <a class="text-blue-700 hover:text-blue-800 underline" href="/">global predictions page</a>.
+    If a state is missing from this table it is for one of two reasons: the max number of deaths in that state are less than 10,
+    or the state does not have an official lock-down date. Without this date, I cannot predict when it will be out-of-the-woods.
+    Just like the global predictions, all code can be found on <a class="text-blue-700 hover:text-blue-800 underline" href="https://github.com/wspeirs/covid">GitHub</a>.
+</p>
+<br>
+<span class="font-semibold text-xl">Predictions Over Time</span>
+<table class="table-auto mx-auto">
+    <tr>
+        <th class="text-center px-3 py-1">State</th>
+        {% for date in dates %}
+        <th class="text-center px-3 py-1">{{date}}</th>
+        {% endfor %}
+    </tr>
+
+    {% for state, pred in predictions %}
+    <tr class="{{ loop.cycle('bg-gray-300', '') }}">
+        <td class="px-3 py-1">{{state}}</td>
+        {% for date in dates %}
+        <td class="text-center px-3 py-1">{{pred[date]}}</td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+</table>
+<br/>
+</div>
+</body>
+</html>
