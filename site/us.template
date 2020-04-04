@@ -25,10 +25,11 @@
 <br>
 <span class="font-semibold text-xl">Introduction</span>
 <p class="mt-4">
-    This is an attempt to predict the rise and fall of deaths from the covid-19 virus for each sate in the United States.
+    This is an attempt to predict the rise and fall of deaths from the covid-19 virus for each state in the United States.
     The methodology used can be found on the <a class="text-blue-700 hover:text-blue-800 underline" href="/">global predictions page</a>.
-    If a state is missing from this table it is for one of two reasons: the max number of deaths in that state are less than 10,
-    or the state does not have an official lock-down date. Without this date, I cannot predict when it will be out-of-the-woods.
+    If a state is missing from this table it is for one of two reasons: the max number of deaths in that state is fewer than 10,
+    or the state does not have an official lock-down date. Without this date, I cannot predict when it will be out-of-the-woods
+    because the virus will continue to spread unabated to all the citizens in that state.
     Just like the global predictions, all code can be found on <a class="text-blue-700 hover:text-blue-800 underline" href="https://github.com/wspeirs/covid">GitHub</a>.
 </p>
 <br>
