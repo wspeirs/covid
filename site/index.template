@@ -93,13 +93,21 @@
 <br/>
 <span class="font-semibold text-xl">Italy, Spain, and the United Kingdom</span>
 <p>
-    I picked 3 countries -- Italy, Spain, and the United Kingdom -- to try and predict when they will be out-of-the-woods, and with how many deaths.
+    I picked 3 countries &ndash; Italy, Spain, and the United Kingdom &ndash; to try and predict when they will be out-of-the-woods, and with how many deaths.
     I picked these 3 countries because they all had different lock-down dates: March 8th, March 15th, and March 24th respectively.
     Picking a lock-down date is difficult because they can very from area-to-area in a country, but these dates <i>seem</i> to fit the data.
     The latest predictions for each country can be found at the top of the page, and the fitted curves in the graphs below.
     <img class="mx-auto" src="img/italy.png" alt="Italy prediction"/>
     <img class="mx-auto" src="img/spain.png" alt="Spain prediction"/>
     <img class="mx-auto" src="img/united_kingdom.png" alt="UK prediction"/>
+</p>
+<br/>
+<span class="font-semibold text-xl">Sweden</span>
+<p>
+    Sweden is an interesting case in that they are openly <b>not</b> imposing a lock-down. There is much debate about if
+    this makes sense or not. Time will tell. Without a lock-down date, my model does not work. So I have used the current
+    date as the lock-down date for the chart below, meaning the peak will always occur 24 days from today.
+    <img class="mx-auto" src="img/sweden.png" alt="Sweden prediction"/>
 </p>
 </div>
 </body>

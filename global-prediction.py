@@ -13,6 +13,8 @@ from jinja2 import Template
 # ensure we can print all rows
 pd.set_option('display.max_rows', None)
 
+global_deaths_df = pd.read_csv('data/global_deaths.csv', header=0)
+
 countries = [
     # "Belgium",
      # "Brazil",
@@ -26,13 +28,11 @@ countries = [
      # "Netherlands",
      # "Portugal",
     ("Spain", datetime.date(year=2020, month=3, day=15)),
-     # "Sweden",
+    ("Sweden", parse(global_deaths_df.columns[-1]).date()),
      # "Switzerland",
      # "Turkey",
     ("United Kingdom", datetime.date(year=2020, month=3, day=24))
 ]
-
-global_deaths_df = pd.read_csv('data/global_deaths.csv', header=0)
 
 data = defaultdict(lambda: dict())
 
@@ -85,6 +85,7 @@ for data_date in global_deaths_df.columns[73:]:
 
             # plt.show()
             plt.savefig('site/img/{}.png'.format(country.lower().replace(' ', '_')))
+            plt.close()
 
 # convert from dictionary to sorted tuple list
 predictions = [(d, predictions[d]) for d in sorted(predictions.keys(), reverse=True)]

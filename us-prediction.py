@@ -78,7 +78,7 @@ for state, _ in list(states):
         df = df.drop(columns=[state])
 
 predictions = defaultdict(lambda: dict())
-final_df = None
+state2chart = dict()
 
 # go through dates to generate predictions through time
 for data_date in df.index[-4:]:
@@ -109,40 +109,28 @@ for data_date in df.index[-4:]:
         predictions[state][data_date] = '{} - {:,}'.format(clear_date.strftime('%B %-d'), deaths)
 
         # plot the results if it's the last date
-        # if data_date == df.index[-1]:
-        #     if final_df is None:
-        #         final_df = df_diff.copy()
-        #     else:
-        #         final_df = pd.concat([final_df, df_diff], axis=1)
-        #
-        #     final_df = final_df.drop(columns=['computed'])
+        if data_date == df.index[-1]:
+            ax = df_diff.plot(figsize=(10,5))
+            (start, end) = ax.get_xlim()
+            ax.xaxis.set_ticks(np.arange(start, end, 6))
+            ax.xaxis.set_major_formatter(mdates.DateFormatter('%-m/%-d'))
+            plt.ylabel('Deaths by Day')
+            plt.grid(which='both', axis='x')
 
-
-# final_df = final_df[(final_df.index > datetime.date(year=2020, month=3, day=8)) & (final_df.index < datetime.date(year=2020, month=6, day=1))]
-
-# plot the combined DataFrame
-# ax = final_df.plot(figsize=(15,10), color='grey')
-# (start, end) = ax.get_xlim()
-# ax.xaxis.set_ticks(np.arange(start, end, 6))
-# ax.xaxis.set_major_formatter(mdates.DateFormatter('%-m/%-d'))
-# plt.ylabel('Deaths by Day')
-# # plt.yscale("log")
-# plt.grid(which='both', axis='x')
-# ax.get_legend().remove()
-# # plt.legend(bbox_to_anchor=(1.04,1), loc="upper left", mode="expand")
-
-# plt.show()
-# plt.savefig('site/img/{}.png'.format(country.lower().replace(' ', '_')))
+            # plt.show()
+            img_name = state.lower().replace(' ', '_')
+            fig = plt.savefig('site/img/us/{}.png'.format(img_name))
+            state2chart[state] = 'img/us/{}.png'.format(img_name)
+            plt.close()
 
 
 # convert from dictionary to sorted tuple list
 predictions = [(s, predictions[s]) for s in sorted(predictions.keys())]
 print(predictions)
 
-
 with open('site/us.template', 'r') as f:
     t = Template(f.read())
-    out = t.render(dates=sorted(df.index[-4:], reverse=True), predictions=predictions)
+    out = t.render(dates=sorted(df.index[-4:], reverse=True), predictions=predictions, state_img=state2chart)
 
     with open('site/us.html', 'w') as f_out:
         f_out.write(out)

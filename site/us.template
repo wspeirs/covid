@@ -29,7 +29,8 @@
     The methodology used can be found on the <a class="text-blue-700 hover:text-blue-800 underline" href="/">global predictions page</a>.
     If a state is missing from this table it is for one of two reasons: the max number of deaths in that state is fewer than 10,
     or the state does not have an official lock-down date. Without this date, I cannot predict when it will be out-of-the-woods
-    because the virus will continue to spread unabated to all the citizens in that state.
+    because the virus will continue to spread unabated to all the citizens in that state. Each state has a link to the number
+    of deaths by day, and my prediction.
     Just like the global predictions, all code can be found on <a class="text-blue-700 hover:text-blue-800 underline" href="https://github.com/wspeirs/covid">GitHub</a>.
 </p>
 <br>
@@ -44,7 +45,7 @@
 
     {% for state, pred in predictions %}
     <tr class="{{ loop.cycle('bg-gray-300', '') }}">
-        <td class="px-3 py-1">{{state}}</td>
+        <td class="px-3 py-1"><a class="text-blue-700 hover:text-blue-800 underline" href="{{state_img[state]}}">{{state}}</a></td>
         {% for date in dates %}
         <td class="text-center px-3 py-1">{{pred[date]}}</td>
         {% endfor %}
