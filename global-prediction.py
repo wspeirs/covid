@@ -51,7 +51,7 @@ df = df.sort_index()
 predictions = defaultdict(lambda : dict())
 
 # go through dates to generate predictions through time
-for data_date in global_deaths_df.columns[73:]:
+for data_date in global_deaths_df.columns[-5:]:
     data_date = parse(data_date).date()  # convert to datetime
 
     # go through each country and lockdown date

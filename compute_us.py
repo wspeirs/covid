@@ -2,7 +2,7 @@ import pandas as pd
 
 from dateutil.parser import parse
 from collections import defaultdict
-
+from datetime import timedelta
 
 #
 # Compute deaths from 2 sources of US data, using the max
@@ -16,7 +16,8 @@ def compute_us():
 
     # go through the NYTs data converting to a DataFrame we can use
     for state, df in nyt_df.groupby('state'):
-        for date, df in df.groupby('date'):
+        date_group = df.groupby('date')
+        for date, df in date_group:
             date_str = date.strftime('%-m/%-d/20')
             nyt_deaths = df['deaths'].sum()
 
@@ -26,11 +27,20 @@ def compute_us():
             else:
                 data[date.date()][state] = nyt_deaths
 
+        date = sorted(date_group.groups.keys())[-1]
+        date += timedelta(days=1)
+        date_str = date.strftime('%-m/%-d/20')
+
+        if date_str in jh_df.columns:
+            jh_deaths = jh_df[jh_df['Province_State'] == state][date_str].sum()
+            data[date.date()][state] = jh_deaths
+
     df = pd.DataFrame(data).T
     df = df.sort_index()
     df = df.fillna(value=0)
 
     return df
+
 
 if __name__ == '__main__':
     print(compute_us())
