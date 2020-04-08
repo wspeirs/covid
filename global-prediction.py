@@ -8,7 +8,7 @@ from fit import fit_sin
 from dateutil.parser import parse
 from collections import defaultdict
 from jinja2 import Template
-
+from math import floor
 
 # ensure we can print all rows
 pd.set_option('display.max_rows', None)
@@ -72,7 +72,7 @@ for data_date in global_deaths_df.columns[-5:]:
         print("Clear by: {} with {} deaths".format(clear_date, deaths))
 
         # record the prediction
-        predictions[data_date][country] = '{} - {:,}'.format(clear_date.strftime('%B %-d'), deaths)
+        predictions[data_date][country] = '{} - {:,}'.format(clear_date.strftime('%B %-d'), floor(deaths))
 
         # plot the results if it's the last date
         if data_date == parse(global_deaths_df.columns[-1]).date():

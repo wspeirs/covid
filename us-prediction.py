@@ -6,10 +6,9 @@ import datetime
 
 from fit import fit_sin
 from compute_us import compute_us
-from dateutil.parser import parse
 from collections import defaultdict
 from jinja2 import Template
-
+from math import floor
 
 # ensure we can print all rows
 pd.set_option('display.max_rows', None)
@@ -106,7 +105,7 @@ for data_date in df.index[-4:]:
         print("{} clear by: {} with {} deaths".format(state, clear_date, deaths))
 
         # record the prediction
-        predictions[state][data_date] = '{} - {:,}'.format(clear_date.strftime('%B %-d'), deaths)
+        predictions[state][data_date] = '{} - {:,}'.format(clear_date.strftime('%B %-d'), floor(deaths))
 
         # plot the results if it's the last date
         if data_date == df.index[-1]:
