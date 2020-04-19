@@ -22,6 +22,12 @@
     <span class="font-semibold">Disclaimer:</span>  Everything on this page is a prediction. I make no claims to the accuracy
     of the information.
 </p>
+<p class="mt-6">
+    <span class="font-semibold text-red-700">Update 4/19:</span> I updated the fit algorithm <i>slightly</i> to use either
+    the predicted peak date, or an actual peak date, whichever is further into the future. I'm only using the NYTs data
+    as there is large jump in deaths in the Johns Hopkins data for New York. I fixed an error where I was including states
+    did not have greater than 10 deaths per day.
+</p>
 <br>
 <span class="font-semibold text-xl">Introduction</span>
 <p class="mt-4">

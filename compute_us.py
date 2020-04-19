@@ -3,6 +3,8 @@ import pandas as pd
 from dateutil.parser import parse
 from collections import defaultdict
 from datetime import timedelta
+from statistics import mean
+
 
 #
 # Compute deaths from 2 sources of US data, using the max
@@ -21,19 +23,24 @@ def compute_us():
             date_str = date.strftime('%-m/%-d/20')
             nyt_deaths = df['deaths'].sum()
 
-            if date_str in jh_df.columns:
-                jh_deaths = jh_df[jh_df['Province_State'] == state][date_str].sum()
-                data[date.date()][state] = max(nyt_deaths, jh_deaths)
-            else:
-                data[date.date()][state] = nyt_deaths
+            # just use NYTs data
+            data[date.date()][state] = nyt_deaths
 
-        date = sorted(date_group.groups.keys())[-1]
-        date += timedelta(days=1)
-        date_str = date.strftime('%-m/%-d/20')
+            # if date_str in jh_df.columns:
+            #     jh_deaths = jh_df[jh_df['Province_State'] == state][date_str].sum()
+            #     data[date.date()][state] = mean([nyt_deaths, jh_deaths])
+            #     if state == 'Connecticut':
+            #         print("{} vs {}".format(nyt_deaths, jh_deaths))
+            # else:
+            #     data[date.date()][state] = nyt_deaths
 
-        if date_str in jh_df.columns:
-            jh_deaths = jh_df[jh_df['Province_State'] == state][date_str].sum()
-            data[date.date()][state] = jh_deaths
+        # date = sorted(date_group.groups.keys())[-1]
+        # date += timedelta(days=1)
+        # date_str = date.strftime('%-m/%-d/20')
+        #
+        # if date_str in jh_df.columns:
+        #     jh_deaths = jh_df[jh_df['Province_State'] == state][date_str].sum()
+        #     data[date.date()][state] = jh_deaths
 
     df = pd.DataFrame(data).T
     df = df.sort_index()

@@ -19,18 +19,33 @@
 <h2 class="text-center text-2xl">by <a class="text-blue-700 hover:text-blue-800 underline" href="https://www.linkedin.com/in/williamspeirs/">William R. Speirs</a></h2>
 <h3 class="text-center text-xl"><a class="text-blue-700 hover:text-blue-800 underline" href="/us.html">US Predictions</a></h3>
 <p class="mt-6">
-    <span class="font-semibold">Disclaimer:</span>  Everything on this page is a prediction. I make no claims to the accuracy
+    <span class="font-semibold">Disclaimer:</span> Everything on this page is a prediction. I make no claims to the accuracy
     of the information.
+</p>
+<p class="mt-6">
+    <span class="font-semibold text-red-700">Update 4/19:</span> I updated the fit algorithm <i>slightly</i> to use either
+    the predicted peak date, or an actual peak date, whichever is further into the future. I also have included graphs for
+    France and Germany as they appear to have peaked.
 </p>
 <br>
 <span class="font-semibold text-xl">Predictions Over Time</span>
 <table class="table-auto">
-    <tr><th class="text-center px-3 py-1">Prediction Date</th><th class="text-center px-3 py-1">Italy</th><th class="text-center px-3 py-1">Spain</th><th class="text-center px-3 py-1">UK</th></tr>
+    <tr>
+        <th class="text-center px-3 py-1">Prediction Date</th>
+        <th class="text-center px-3 py-1">Italy</th>
+        <th class="text-center px-3 py-1">Spain</th>
+        <th class="text-center px-3 py-1">France</th>
+        <th class="text-center px-3 py-1">Germany</th>
+        <th class="text-center px-3 py-1">UK</th>
+    </tr>
+
     {% for date, countries in predictions %}
     <tr>
         <td class="text-center px-3 py-1">{{date}}</td>
         <td class="px-3 py-1">{{countries['Italy']}}</td>
         <td class="px-3 py-1">{{countries['Spain']}}</td>
+        <td class="px-3 py-1">{{countries['France']}}</td>
+        <td class="px-3 py-1">{{countries['Germany']}}</td>
         <td class="px-3 py-1">{{countries['United Kingdom']}}</td>
     </tr>
     {% endfor %}
@@ -91,14 +106,16 @@
 
 </p>
 <br/>
-<span class="font-semibold text-xl">Italy, Spain, and the United Kingdom</span>
+<span class="font-semibold text-xl">Italy, Spain, France, Germany, and the UK</span>
 <p>
-    I picked 3 countries &ndash; Italy, Spain, and the United Kingdom &ndash; to try and predict when they will be out-of-the-woods, and with how many deaths.
-    I picked these 3 countries because they all had different lock-down dates: March 8th, March 15th, and March 24th respectively.
+    I picked 5 countries &ndash; Italy, Spain, France, Germany, and the United Kingdom &ndash; to try and predict when they will be out-of-the-woods, and with how many deaths.
+    I picked these countries because of their various lock-down dates and appearance to have peaked.
     Picking a lock-down date is difficult because they can very from area-to-area in a country, but these dates <i>seem</i> to fit the data.
     The latest predictions for each country can be found at the top of the page, and the fitted curves in the graphs below.
     <img class="mx-auto" src="img/italy.png" alt="Italy prediction"/>
     <img class="mx-auto" src="img/spain.png" alt="Spain prediction"/>
+    <img class="mx-auto" src="img/france.png" alt="Spain prediction"/>
+    <img class="mx-auto" src="img/germany.png" alt="Spain prediction"/>
     <img class="mx-auto" src="img/united_kingdom.png" alt="UK prediction"/>
 </p>
 <br/>

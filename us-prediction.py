@@ -71,11 +71,6 @@ states = [
 
 df = compute_us()
 
-# ensure we have enough data
-for state, _ in list(states):
-    if df[state].max() < 10:
-        df = df.drop(columns=[state])
-
 predictions = defaultdict(lambda: dict())
 state2chart = dict()
 
@@ -94,6 +89,10 @@ for data_date in df.index[-4:]:
 
         # convert from raw counts to difference with a 3-day moving average
         df_diff[state] = df[state].diff().rolling(window=3).mean()
+
+        # ensure we have enough data
+        if df_diff[state].max() < 10:
+            continue
 
         df_diff = df_diff.fillna(value=0)
         # print(df_diff)

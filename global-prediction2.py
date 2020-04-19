@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import datetime
 
-from fit import fit_sin
+from fit import fit_sin, fit_sigmoid
 from dateutil.parser import parse
 from collections import defaultdict
 from jinja2 import Template
@@ -19,19 +19,19 @@ countries = [
     # "Belgium",
      # "Brazil",
     # "China",
-    ("France", datetime.date(year=2020, month=3, day=17)),
-    ("Germany", datetime.date(year=2020, month=3, day=22)),
+    # ("France", datetime.date(year=2020, month=3, day=16)),
+    # ("Germany", datetime.date(year=2020, month=3, day=16)),
      # "Indonesia",
     # "Iran",
     ("Italy", datetime.date(year=2020, month=3, day=8)),
     # "Korea, South",
      # "Netherlands",
      # "Portugal",
-    ("Spain", datetime.date(year=2020, month=3, day=15)),
-    ("Sweden", parse(global_deaths_df.columns[-1]).date()),
+    # ("Spain", datetime.date(year=2020, month=3, day=15)),
+    # ("Sweden", parse(global_deaths_df.columns[-1]).date()),
      # "Switzerland",
      # "Turkey",
-    ("United Kingdom", datetime.date(year=2020, month=3, day=24))
+    # ("United Kingdom", datetime.date(year=2020, month=3, day=24))
 ]
 
 data = defaultdict(lambda: dict())
@@ -66,7 +66,8 @@ for data_date in global_deaths_df.columns[-5:]:
         # print(df_diff)
 
         # fit the sin curve
-        clear_date = fit_sin(df_diff, country, lockdown_date)
+        # clear_date = fit_sin(df_diff, country, lockdown_date)
+        clear_date = fit_sigmoid(df_diff, country)
         deaths = df_diff['computed'].sum()
 
         print("Clear by: {} with {} deaths".format(clear_date, deaths))
