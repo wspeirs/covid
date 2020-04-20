@@ -90,8 +90,8 @@ for data_date in df.index[-4:]:
         # convert from raw counts to difference with a 3-day moving average
         df_diff[state] = df[state].diff().rolling(window=3).mean()
 
-        # ensure we have enough data
-        if df_diff[state].max() < 10:
+        # ensure we have enough data, but leave in PR for Tony :-)
+        if state != "Puerto Rico" and df_diff[state].max() < 10:
             continue
 
         df_diff = df_diff.fillna(value=0)
