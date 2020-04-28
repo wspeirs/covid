@@ -16,21 +16,12 @@ pd.set_option('display.max_rows', None)
 global_deaths_df = pd.read_csv('data/global_deaths.csv', header=0)
 
 countries = [
-    # "Belgium",
-     # "Brazil",
-    # "China",
     ("France", datetime.date(year=2020, month=3, day=17)),
     ("Germany", datetime.date(year=2020, month=3, day=22)),
-     # "Indonesia",
-    # "Iran",
     ("Italy", datetime.date(year=2020, month=3, day=8)),
-    # "Korea, South",
-     # "Netherlands",
-     # "Portugal",
     ("Spain", datetime.date(year=2020, month=3, day=15)),
     ("Sweden", parse(global_deaths_df.columns[-1]).date()),
-     # "Switzerland",
-     # "Turkey",
+    # ("US", datetime.date(year=2020, month=2, day=21)),  # bogus date
     ("United Kingdom", datetime.date(year=2020, month=3, day=24))
 ]
 

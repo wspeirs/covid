@@ -53,12 +53,15 @@ def fit_sin(df, country, lockdown_date):
             prev_first_death_date = first_death_date
             first_death_date += datetime.timedelta(days=1)
         else:
+            last_death_date = peak_date + datetime.timedelta(days=(peak_date - prev_first_death_date).days)
+            duration = (last_death_date - prev_first_death_date).days
+
             df['computed'] = float(0.0)  # fill with zeros
 
             for day in range((last_death_date - prev_first_death_date).days):
                 df.at[prev_first_death_date + datetime.timedelta(days=day), 'computed'] = peak_deaths * sin(day * (pi / duration))
 
-            print("LAST DEATH: {}".format(last_death_date))
+            print("FIRST DEATH: {}\tLAST DEATH: {}".format(prev_first_death_date, last_death_date))
 
             return last_death_date
 
